@@ -1,5 +1,7 @@
 package A05_Breitensuche;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Breitensuche extends BaseTree<Integer> {
@@ -15,8 +17,15 @@ public class Breitensuche extends BaseTree<Integer> {
 	 * @return Liste der Knoten in Breitenfolge
 	 */
 	public List<Integer> getBreadthFirstOrder(Node<Integer> start) {
-
-		return null;
+		List<Integer> result = new ArrayList<>();
+		int level = 1;
+		List<Integer> nodesAtLevel = getBreadthFirstOrderForLevel(start, level);
+		while (nodesAtLevel.size() > 0) {
+			result.addAll(nodesAtLevel);
+			level++;
+			nodesAtLevel = getBreadthFirstOrderForLevel(start, level);
+		}
+		return result;
 	}
 
 	/**
@@ -27,8 +36,14 @@ public class Breitensuche extends BaseTree<Integer> {
 	 * @return Liste aller Knoten
 	 */
 	public List<Integer> getBreadthFirstOrderForLevel(Node<Integer> start, int level) {
-
-		return null;
+		if (start == null || level < 1)
+			return Collections.emptyList();
+		if (level == 1)
+			return List.of(start.getValue());
+		List<Integer> nodesAtLevel = new ArrayList<>();
+		nodesAtLevel.addAll(getBreadthFirstOrderForLevel(start.getLeft(), level - 1));
+		nodesAtLevel.addAll(getBreadthFirstOrderForLevel(start.getRight(), level - 1));
+		return nodesAtLevel;
 	}
 
 }
