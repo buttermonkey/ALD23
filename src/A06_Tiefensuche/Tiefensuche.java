@@ -1,5 +1,7 @@
 package A06_Tiefensuche;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import A05_Breitensuche.BaseTree;
@@ -12,8 +14,7 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * Sortierkriterium im Baum: Länge des Films
 	 */
 	protected int compare(Film a, Film b) {
-
-		return 0;
+		return Double.compare(a.getLänge(), b.getLänge());
 	}
 
 	/**
@@ -22,8 +23,13 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * @return Liste der Titel in symmetrischer Reihenfolge
 	 */
 	public List<String> getNodesInOrder(Node<Film> node) {
-
-		return null;
+		if (node == null)
+			return Collections.emptyList();
+		List<String> result = new ArrayList<>();
+		result.addAll(getNodesInOrder(node.getLeft()));
+		result.add(node.getValue().getTitel());
+		result.addAll(getNodesInOrder(node.getRight()));
+		return result;
 	}
 	
 	/**
@@ -33,8 +39,18 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * @return Liste der Filmtitel in Hauptreihenfolge
 	 */
 	public List<String> getMinMaxPreOrder(double min, double max) {
+		return getMinMaxPreOrder(root, min, max);
+	}
 
-		return null;
+	private List<String> getMinMaxPreOrder(Node<Film> w, double min, double max) {
+		if (w == null)
+			return Collections.emptyList();
+		List<String> result = new ArrayList<>();
+		if (w.getValue().getLänge() >= min && w.getValue().getLänge() <= max)
+			result.add(w.getValue().getTitel());
+		result.addAll(getMinMaxPreOrder(w.getLeft(), min, max));
+		result.addAll(getMinMaxPreOrder(w.getRight(), min, max));
+		return result;
 	}
 
 }
