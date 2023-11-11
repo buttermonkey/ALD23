@@ -48,8 +48,10 @@ public class Tiefensuche extends BaseTree<Film> {
 		List<String> result = new ArrayList<>();
 		if (w.getValue().getLänge() >= min && w.getValue().getLänge() <= max)
 			result.add(w.getValue().getTitel());
-		result.addAll(getMinMaxPreOrder(w.getLeft(), min, max));
-		result.addAll(getMinMaxPreOrder(w.getRight(), min, max));
+		if (min < w.getValue().getLänge())
+			result.addAll(getMinMaxPreOrder(w.getLeft(), min, max));
+		if (max > w.getValue().getLänge())
+			result.addAll(getMinMaxPreOrder(w.getRight(), min, max));
 		return result;
 	}
 
