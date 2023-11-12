@@ -11,8 +11,16 @@ public class QuickSort implements PersonenSort {
 	}
 
 	private void sort(Person[] personen, int left, int right) {
+		// Nothing to do
 		if (left >= right)
 			return;
+
+		// If there are only two values to consider, we can take a huge shortcut
+		if (right - left == 1) {
+			if (personen[left].compareTo(personen[right]) > 0)
+				swap(personen, left, right);
+			return;
+		}
 
 		int itemFromLeft = getItemFromLeft(personen, left, right);
 		int itemFromRight = getItemFromRight(personen, left, right);
