@@ -11,6 +11,8 @@ public class ConnectedComponentsTest {
 		Graph g = new ListGraph(1, false);
 		ConnectedComponents cc = new ConnectedComponents();
 		assertEquals(1, cc.getNumberOfComponents(g));
+
+		// 0
 	}
 
 	@Test
@@ -23,6 +25,10 @@ public class ConnectedComponentsTest {
 		g.addEdge(4, 0);
 		ConnectedComponents cc = new ConnectedComponents();
 		assertEquals(1, cc.getNumberOfComponents(g));
+
+		// 0 - 1 - 2 - 3 - 4
+		// |               |
+		// + ------------- +
 	}
 	
 	@Test
@@ -34,6 +40,12 @@ public class ConnectedComponentsTest {
 		g.addEdge(4, 5);
 		ConnectedComponents cc = new ConnectedComponents();
 		assertEquals(2, cc.getNumberOfComponents(g));
+
+		// 1 - 0 - 2
+		//     |
+		//     3
+		//
+		// 4 - 5
 	}
 	
 	@Test
@@ -41,6 +53,13 @@ public class ConnectedComponentsTest {
 		Graph g = new ListGraph(6, false);
 		ConnectedComponents cc = new ConnectedComponents();
 		assertEquals(6, cc.getNumberOfComponents(g));
+
+		// 0
+		// 1
+		// 2
+		// 3
+		// 4
+		// 5
 	}
 	
 	@Test
@@ -56,6 +75,16 @@ public class ConnectedComponentsTest {
 		g.addEdge(8, 6);
 		ConnectedComponents cc = new ConnectedComponents();
 		assertEquals(3, cc.getNumberOfComponents(g));
+
+		// 0 - 1 - 2
+		//     |   |
+		//     3 - 4
+		//
+		// 5
+		//
+		// 6 - 7 - 8
+		// |       |
+		// + ----- +
 	}
 	
 }
