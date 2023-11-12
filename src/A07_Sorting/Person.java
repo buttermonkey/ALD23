@@ -1,5 +1,7 @@
 package A07_Sorting;
 
+import java.util.Comparator;
+
 public class Person {
 	
 	private final String nachname;
@@ -24,6 +26,9 @@ public class Person {
 	 * @return <0, wenn a<b || =0, wenn a=b || >0, wenn a>b
 	 */
 	public int compareTo(Person p) {
-		return 0;
+		return Comparator
+				.comparing(Person::getNachname, String::compareTo)
+				.thenComparing(Person::getVorname, String::compareTo)
+				.compare(this, p);
 	}
 }

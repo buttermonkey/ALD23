@@ -11,12 +11,41 @@ public class QuickSort implements PersonenSort {
 	}
 
 	private void sort(Person[] personen, int left, int right) {
-		// TODO: Implementation
+		if (left >= right)
+			return;
+
+		int itemFromLeft = getItemFromLeft(personen, left, right);
+		int itemFromRight = getItemFromRight(personen, left, right);
+		while (itemFromLeft < itemFromRight) {
+			swap(personen, itemFromLeft, itemFromRight);
+			itemFromLeft = getItemFromLeft(personen, left, right);
+			itemFromRight = getItemFromRight(personen, left, right);
+		}
+		swap(personen, itemFromLeft, right);
+
+		sort(personen, left, itemFromLeft - 1);
+		sort(personen, itemFromLeft + 1, right);
 	}
 
-	private int partition(Person[] personen, int left, int right) {
-		// TODO: Implementation
+	private static void swap(Person[] personen, int idx1, int idx2) {
+		Person temp = personen[idx1];
+		personen[idx1] = personen[idx2];
+		personen[idx2] = temp;
+	}
 
-		return 1;
+	// The pivot is the element at the right most side
+	// The pivot is the element at the right most side
+	private int getItemFromLeft(Person[] personen, int left, int right) {
+		for (int i = left; i < right; i++)
+			if (personen[i].compareTo(personen[right]) >= 0)
+				return i;
+		return right;
+	}
+
+	private int getItemFromRight(Person[] personen, int left, int right) {
+		for (int i = right - 1; i >= left; i--)
+			if (personen[i].compareTo(personen[right]) < 0)
+				return i;
+		return -1;
 	}
 }
