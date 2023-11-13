@@ -50,13 +50,13 @@ public class QuickSort implements PersonenSort {
 	// The pivot is the element at the right most side
 	private int getItemFromLeft(Person[] personen, int left, int right) {
 		for (int i = left; i < right; i++)
-			if (personen[i].compareTo(personen[right]) >= 0)
+			if (personen[i].compareTo(personen[right]) > 0)
 				return i;
 		return right;
 	}
 
 	private int getItemFromRight(Person[] personen, int left, int right) {
-		for (int i = right - 1; i >= left; i--)
+		for (int i = right - 1; i > left; i--)
 			if (personen[i].compareTo(personen[right]) < 0)
 				return i;
 		return -1;
