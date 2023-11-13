@@ -12,6 +12,8 @@ public class ZyklenTest {
 		Graph g = new ListGraph(1, false);
 		Zyklen z = new Zyklen(g);
 		assertNull(z.getCycle());
+
+		// 0
 	}
 
 	@Test
@@ -20,6 +22,8 @@ public class ZyklenTest {
 		g.addEdge(0, 1);
 		Zyklen z = new Zyklen(g);
 		assertNull(z.getCycle());
+
+		// 0 - 1
 	}
 
 	@Test
@@ -32,6 +36,10 @@ public class ZyklenTest {
 		g.addEdge(4, 0);
 		Zyklen z = new Zyklen(g);
 		assertCycle(g, 6, z.getCycle());
+
+		// 0 - 1 - 2 - 3 - 4
+		// |               |
+		// + ------------- +
 	}
 	
 	@Test
@@ -47,6 +55,14 @@ public class ZyklenTest {
 		g.addEdge(1, 3);
 		Zyklen z = new Zyklen(g);
 		assertCycle(g, 4, z.getCycle());
+
+		//     4
+		//     |
+		// 0 - 2 - 7 - 5
+		//     |
+		// 1 - 6 - 3
+		// |       |
+		// + ----- +
 	}
 	
 	@Test
@@ -61,6 +77,14 @@ public class ZyklenTest {
 		g.addEdge(8, 3);
 		Zyklen z = new Zyklen(g);
 		assertCycle(g, 5, z.getCycle());
+
+		// 0
+		//
+		// 4 - 2 - 7 - 5
+		//
+		// 3 - 6 - 1 - 8
+		// |           |
+		// + --------- +
 	}
 	
 	@Test
@@ -76,6 +100,10 @@ public class ZyklenTest {
 		g.addEdge(5, 4);
 		Zyklen z = new Zyklen(g);
 		assertCycle(g, 4, z.getCycle());
+
+		// 0 - 1 - 2 - 3 - 4 - 5 - 6 - 7
+		//         |       |
+		//         + ----- +
 	}
 
 	@Test
@@ -87,6 +115,10 @@ public class ZyklenTest {
 		g.addEdge(3, 1);
 		Zyklen z = new Zyklen(g);
 		assertCycle(g, 4, z.getCycle());
+
+		// 0 -> 1 -> 2 -> 3
+		//      |         |
+		//      + <------ +
 	}
 
 	@Test
@@ -96,6 +128,10 @@ public class ZyklenTest {
 		g.addEdge(1, 0);
 		Zyklen z = new Zyklen(g);
 		assertCycle(g, 3, z.getCycle());
+
+		// 0 -> 1
+		// |    |
+		// + <- +
 	}
 
 	@Test
@@ -107,6 +143,10 @@ public class ZyklenTest {
 		g.addEdge(0, 3);
 		Zyklen z = new Zyklen(g);
 		assertNull(z.getCycle());
+
+		// 0 -> 1 -> 2 -> 3
+		// |              |
+		// + -----------> +
 	}
 
 	@Test
@@ -119,6 +159,10 @@ public class ZyklenTest {
 		g.addEdge(3, 4);
 		Zyklen z = new Zyklen(g);
 		assertNull(z.getCycle());
+
+		// 2 <- 0 -> 1 -> 3 -> 4
+		// |              |
+		// + -----------> +
 	}
 
 	private void assertCycle(Graph g, int expectedSize, List<Integer> li) {
