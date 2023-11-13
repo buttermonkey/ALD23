@@ -29,12 +29,12 @@ public class QuickSort implements PersonenSort {
 	}
 
 	private int partition(Person[] personen, int left, int right) {
-		int itemFromLeft = getItemFromLeft(personen, left, right);
-		int itemFromRight = getItemFromRight(personen, left, right);
+		int itemFromLeft = getItemFromLeft(personen, left, right, right);
+		int itemFromRight = getItemFromRight(personen, left, right, right);
 		while (itemFromLeft < itemFromRight) {
 			swap(personen, itemFromLeft, itemFromRight);
-			itemFromLeft = getItemFromLeft(personen, left, right);
-			itemFromRight = getItemFromRight(personen, left, right);
+			itemFromLeft = getItemFromLeft(personen, itemFromLeft, itemFromRight, right);
+			itemFromRight = getItemFromRight(personen, itemFromLeft, itemFromRight, right);
 		}
 		swap(personen, itemFromLeft, right);
 		return itemFromLeft;
@@ -46,18 +46,16 @@ public class QuickSort implements PersonenSort {
 		personen[idx2] = temp;
 	}
 
-	// The pivot is the element at the right most side
-	// The pivot is the element at the right most side
-	private int getItemFromLeft(Person[] personen, int left, int right) {
+	private int getItemFromLeft(Person[] personen, int left, int right, int pivot) {
 		for (int i = left; i < right; i++)
-			if (personen[i].compareTo(personen[right]) > 0)
+			if (personen[i].compareTo(personen[pivot]) > 0)
 				return i;
 		return right;
 	}
 
-	private int getItemFromRight(Person[] personen, int left, int right) {
+	private int getItemFromRight(Person[] personen, int left, int right, int pivot) {
 		for (int i = right - 1; i > left; i--)
-			if (personen[i].compareTo(personen[right]) < 0)
+			if (personen[i].compareTo(personen[pivot]) < 0)
 				return i;
 		return -1;
 	}
