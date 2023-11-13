@@ -22,6 +22,13 @@ public class QuickSort implements PersonenSort {
 			return;
 		}
 
+		int pivot = partition(personen, left, right);
+
+		sort(personen, left, pivot - 1);
+		sort(personen, pivot + 1, right);
+	}
+
+	private int partition(Person[] personen, int left, int right) {
 		int itemFromLeft = getItemFromLeft(personen, left, right);
 		int itemFromRight = getItemFromRight(personen, left, right);
 		while (itemFromLeft < itemFromRight) {
@@ -30,9 +37,7 @@ public class QuickSort implements PersonenSort {
 			itemFromRight = getItemFromRight(personen, left, right);
 		}
 		swap(personen, itemFromLeft, right);
-
-		sort(personen, left, itemFromLeft - 1);
-		sort(personen, itemFromLeft + 1, right);
+		return itemFromLeft;
 	}
 
 	private static void swap(Person[] personen, int idx1, int idx2) {
