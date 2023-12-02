@@ -22,8 +22,23 @@ public class Main {
 		List<Integer> way = dfs.findWay(0, 7);
 		printWay(way);
 
+		//       (3)          (4)
+		//     0 ----- 4 ------------- +
+		//     |       |               |
+		//     |   (6) |               |
+		//     |       |  (1)     (3)  | (4)
+		// (4) |       1 ----- 3 ----- 2 --- 7
+		//     |       |      / \            |
+		//     |   (2) |     |   |           |
+		//     |       |     |   |           |
+		//     5 ----- 6 --- +   + --------- +
+		//       (3)     (2)          (2)
+		//
+		// Expected (0, 7):
+		//   : 0 -> 4 -> 2 -> 7      (11)
+		//   : 0 -> 5 -> 6 -> 3 -> 7 (11)
 	}
-	
+
 	public static void printWay(List<Integer> way) {
 		if (way == null) {
 			System.out.println("Kein Weg gefunden.");

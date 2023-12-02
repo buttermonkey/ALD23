@@ -18,7 +18,8 @@ public class DijkstraPQShortestPath extends FindWay {
 		int numv = graph.numVertices();
 		dist = new int[numv];
 		for (int i = 0; i < numv; i++) {
-			dist[i] = 9999; // Summen im Graph dürfen nie mehr ergeben
+			dist[i] = Integer.MAX_VALUE; // Summen im Graph dürfen nie mehr ergeben
+			pred[i] = NOT_VISITED;
 		}
 	}
 
@@ -30,8 +31,25 @@ public class DijkstraPQShortestPath extends FindWay {
 	 *            Startknoten
 	 */
 	protected boolean calculatePath(int from, int to) {
+		VertexHeap heap = new VertexHeap(graph.numVertices());
+		heap.insert(new Vertex(from, 0));
+		dist[from] = 0;
 
-		// TODO: IHRE IMPLEMENTIERUNG
-		return true;
+		while (!heap.isEmpty()) {
+			Vertex v = heap.remove();
+			for (WeightedEdge e : graph.getEdges(v.vertex)) {
+				int currentPathDistance = v.cost + e.weight;
+				if (dist[e.to_vertex] > currentPathDistance) {
+					if (pred[e.to_vertex] != NOT_VISITED)
+						heap.setCost(e.to_vertex, currentPathDistance);
+					else
+						heap.insert(new Vertex(e.to_vertex, currentPathDistance));
+					dist[e.to_vertex] = currentPathDistance;
+					pred[e.to_vertex] = e.from_vertex;
+				}
+			}
+		}
+
+		return pred[to] != NOT_VISITED;
 	}
 }

@@ -2,6 +2,8 @@ package A10_DijkstraPQShortestPath;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.Collectors.toCollection;
+
 public class ListGraph implements Graph {
 
 	private ArrayList<WeightedEdge>[] graph;
@@ -56,7 +58,15 @@ public class ListGraph implements Graph {
 	}
 
 	public void removeEdge(int u, int v) {
-		// TODO
+		removeDirectedEdge(u, v);
+		if (!isDirected())
+			removeDirectedEdge(v, u);
+	}
+
+	private void removeDirectedEdge(int u, int v) {
+		graph[u] = graph[u].stream()
+				.filter(edge -> edge.to_vertex != v)
+				.collect(toCollection(ArrayList::new));
 	}
 
 	public List<WeightedEdge> getEdges(int v) {
